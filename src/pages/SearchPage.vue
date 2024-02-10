@@ -22,15 +22,19 @@
       v-model:main-active-index="activeIndex"
       :items="tagList"
   />
+  <div style="padding: 16px">
+    <van-button block type="primary" @click="doSearchResult">搜索</van-button>
+  </div>
 
 </template>
 
 <script setup>
 import {ref} from 'vue';
 import {Toast} from 'vant';
+import {useRouter} from "vue-router";
 
 const searchText = ref('');
-
+const router = useRouter();
 /**
  * 已选中的标签
  *
@@ -54,6 +58,15 @@ const originTagList = [
     ],
   },
 ];
+
+const doSearchResult = () => {
+  router.push({
+    path: '/user/list',
+    query:{
+      tags: activeIds.value
+    }
+  })
+}
 
 let tagList = ref(originTagList);
 
